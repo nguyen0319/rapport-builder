@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sample-authorization.schema.json",
+  "title": "Rapport Builder public authorization snapshot",
+  "description": "Reduced public representation of an authorization decision. The private application contract contains additional evidence, version, hash, and identity fields.",
+  "type": "object",
+  "required": [
+    "action",
+    "mode",
+    "control",
+    "decision",
+    "created_at"
+  ],
+  "properties": {
+    "action": {
+      "type": "string",
+      "enum": [
+        "READ",
+        "PROPOSE_DRAFT",
+        "EXECUTE_PLATFORM_WRITE"
+      ]
+    },
+    "mode": {
+      "type": "string",
+      "enum": [
+        "OFF",
+        "MONITOR_ONLY",
+        "SHADOW",
+        "DRAFT_ONLY",
+        "AUTO_LOW_RISK",
+        "MANUAL_TAKEOVER",
+        "PAUSED",
+        "EMERGENCY_STOP"
+      ]
+    },
+    "control": {
+      "type": "object",
+      "required": [
+        "account_epoch",
+        "conversation_epoch"
+      ],
+      "properties": {
+        "account_epoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "conversation_epoch": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "decision": {
+      "type": "object",
+      "required": [
+        "allowed",
+        "code"
+      ],
+      "properties": {
+        "allowed": {
+          "type": "boolean"
+        },
+        "code": {
+          "type": "string",
+          "enum": [
+            "ALLOW_READ",
+            "ALLOW_DRAFT",
+            "ALLOW_HUMAN_WRITE",
+            "ALLOW_AUTO_LOW_RISK_WRITE",
+            "EMERGENCY_STOP_ACTIVE",
+            "RELEASE_STAGE_NO_WRITE",
+            "CONNECTOR_DISABLED",
+            "CONTROL_MODE_NO_WRITE",
+            "HUMAN_APPROVAL_MISSING",
+            "STALE_ACCOUNT_EPOCH",
+            "STALE_CONVERSATION_EPOCH",
+            "STALE_CONVERSATION_VERSION",
+            "STALE_SCRIPT_VERSION",
+            "STALE_POLICY_VERSION"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "created_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "const": "<redacted>"
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

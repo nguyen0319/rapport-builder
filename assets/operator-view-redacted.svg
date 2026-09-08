@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">Rapport Builder operator dashboard design rendering</title>
+  <desc id="desc">A redacted design rendering of the planned Rapport Builder operator overview. It contains no live account data and is not a screenshot of the current implementation.</desc>
+  <rect width="1440" height="900" fill="#0b1020"/>
+  <rect x="0" y="0" width="1440" height="74" fill="#11182d"/>
+  <text x="36" y="46" font-family="Inter,Arial,sans-serif" font-size="28" font-weight="700" fill="#f5f7ff">Rapport Builder</text>
+  <rect x="1045" y="20" rx="14" ry="14" width="180" height="34" fill="#192643" stroke="#506aa3"/>
+  <text x="1070" y="43" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#cbd7ff">DESIGN RENDERING</text>
+  <rect x="1242" y="20" rx="14" ry="14" width="160" height="34" fill="#3a1830" stroke="#98516f"/>
+  <text x="1261" y="43" font-family="Inter,Arial,sans-serif" font-size="14" font-weight="700" fill="#ffd4e3">NO LIVE DATA</text>
+
+  <rect x="0" y="74" width="238" height="826" fill="#0e1527"/>
+  <text x="28" y="118" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#7181a6">CONTROL PLANE</text>
+  <g font-family="Inter,Arial,sans-serif" font-size="16">
+    <rect x="18" y="140" rx="9" ry="9" width="202" height="44" fill="#1a2744"/>
+    <text x="42" y="168" fill="#f4f6ff" font-weight="700">Overview</text>
+    <text x="42" y="222" fill="#aab6d5">Conversations</text>
+    <text x="42" y="270" fill="#aab6d5">Review</text>
+    <text x="42" y="318" fill="#aab6d5">Scripts</text>
+    <text x="42" y="366" fill="#aab6d5">Offers</text>
+    <text x="42" y="414" fill="#aab6d5">Models</text>
+    <text x="42" y="462" fill="#aab6d5">Incidents</text>
+    <text x="42" y="510" fill="#aab6d5">Audit</text>
+  </g>
+  <rect x="18" y="764" rx="10" ry="10" width="202" height="92" fill="#151d31" stroke="#2d3c5f"/>
+  <text x="34" y="790" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" fill="#7384ac">M1 TARGET</text>
+  <text x="34" y="816" font-family="Inter,Arial,sans-serif" font-size="14" fill="#d9e1fa">Offline synthetic UI</text>
+  <text x="34" y="840" font-family="Inter,Arial,sans-serif" font-size="12" fill="#8f9bb9">Current M0 has no UI.</text>
+
+  <text x="278" y="126" font-family="Inter,Arial,sans-serif" font-size="30" font-weight="700" fill="#f4f6ff">Operator overview</text>
+  <text x="278" y="154" font-family="Inter,Arial,sans-serif" font-size="14" fill="#8f9bb9">Redacted design reference for the specified responsive control dashboard</text>
+
+  <rect x="278" y="184" rx="12" ry="12" width="1124" height="56" fill="#18233b" stroke="#34486f"/>
+  <text x="300" y="218" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#d9e4ff">Synthetic placeholders only</text>
+  <text x="496" y="218" font-family="Inter,Arial,sans-serif" font-size="14" fill="#98a8c9">No account names, messages, identifiers, prices, hashes, or private evidence are shown.</text>
+
+  <g font-family="Inter,Arial,sans-serif">
+    <rect x="278" y="268" rx="14" ry="14" width="254" height="128" fill="#121b30" stroke="#2b3b60"/>
+    <text x="300" y="298" font-size="12" font-weight="700" fill="#7181a6">ACCOUNT MODE</text>
+    <text x="300" y="342" font-size="26" font-weight="700" fill="#f5f7ff">DRAFT_ONLY</text>
+    <text x="300" y="372" font-size="13" fill="#8f9bb9">Design-state example</text>
+
+    <rect x="554" y="268" rx="14" ry="14" width="254" height="128" fill="#121b30" stroke="#2b3b60"/>
+    <text x="576" y="298" font-size="12" font-weight="700" fill="#7181a6">HOST / SERVICES</text>
+    <text x="576" y="342" font-size="26" font-weight="700" fill="#f5f7ff">—</text>
+    <text x="576" y="372" font-size="13" fill="#8f9bb9">Not connected in M0</text>
+
+    <rect x="830" y="268" rx="14" ry="14" width="254" height="128" fill="#121b30" stroke="#2b3b60"/>
+    <text x="852" y="298" font-size="12" font-weight="700" fill="#7181a6">REVIEW QUEUE</text>
+    <text x="852" y="342" font-size="26" font-weight="700" fill="#f5f7ff">—</text>
+    <text x="852" y="372" font-size="13" fill="#8f9bb9">Synthetic milestone pending</text>
+
+    <rect x="1106" y="268" rx="14" ry="14" width="296" height="128" fill="#121b30" stroke="#2b3b60"/>
+    <text x="1128" y="298" font-size="12" font-weight="700" fill="#7181a6">WRITE AUTHORITY</text>
+    <text x="1128" y="342" font-size="26" font-weight="700" fill="#ffccd8">DISABLED</text>
+    <text x="1128" y="372" font-size="13" fill="#8f9bb9">Current release boundary</text>
+  </g>
+
+  <rect x="278" y="426" rx="14" ry="14" width="716" height="390" fill="#121b30" stroke="#2b3b60"/>
+  <text x="302" y="460" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#f5f7ff">Conversations</text>
+  <text x="302" y="486" font-family="Inter,Arial,sans-serif" font-size="13" fill="#8f9bb9">Planned filterable queue with control owner, stage, timer, risk, and promotion state</text>
+  <line x1="302" y1="520" x2="970" y2="520" stroke="#273753"/>
+  <g font-family="Inter,Arial,sans-serif" font-size="13" fill="#7181a6">
+    <text x="304" y="548">SUBSCRIBER</text><text x="472" y="548">STAGE</text><text x="620" y="548">CONTROL</text><text x="765" y="548">DUE</text><text x="870" y="548">STATE</text>
+  </g>
+  <g font-family="Inter,Arial,sans-serif" font-size="14">
+    <text x="304" y="592" fill="#dce5ff">Redacted A</text><text x="472" y="592" fill="#aab6d5">Rapport</text><text x="620" y="592" fill="#aab6d5">Operator</text><text x="765" y="592" fill="#aab6d5">—</text><text x="870" y="592" fill="#aab6d5">Synthetic</text>
+    <line x1="302" y1="614" x2="970" y2="614" stroke="#202e49"/>
+    <text x="304" y="654" fill="#dce5ff">Redacted B</text><text x="472" y="654" fill="#aab6d5">Review</text><text x="620" y="654" fill="#aab6d5">Held</text><text x="765" y="654" fill="#aab6d5">—</text><text x="870" y="654" fill="#aab6d5">Synthetic</text>
+    <line x1="302" y1="676" x2="970" y2="676" stroke="#202e49"/>
+    <text x="304" y="716" fill="#dce5ff">Redacted C</text><text x="472" y="716" fill="#aab6d5">Intro</text><text x="620" y="716" fill="#aab6d5">System</text><text x="765" y="716" fill="#aab6d5">—</text><text x="870" y="716" fill="#aab6d5">Synthetic</text>
+  </g>
+
+  <rect x="1018" y="426" rx="14" ry="14" width="384" height="390" fill="#121b30" stroke="#2b3b60"/>
+  <text x="1042" y="460" font-family="Inter,Arial,sans-serif" font-size="18" font-weight="700" fill="#f5f7ff">Control</text>
+  <text x="1042" y="492" font-family="Inter,Arial,sans-serif" font-size="13" fill="#8f9bb9">Human preemption remains authoritative.</text>
+  <rect x="1042" y="532" rx="10" ry="10" width="336" height="50" fill="#1a2744"/>
+  <text x="1066" y="563" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#dce5ff">Pause account</text>
+  <rect x="1042" y="598" rx="10" ry="10" width="336" height="50" fill="#1a2744"/>
+  <text x="1066" y="629" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#dce5ff">Take over conversation</text>
+  <rect x="1042" y="664" rx="10" ry="10" width="336" height="50" fill="#3a1830" stroke="#98516f"/>
+  <text x="1066" y="695" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#ffd4e3">Emergency stop</text>
+  <text x="1042" y="764" font-family="Inter,Arial,sans-serif" font-size="12" fill="#7181a6">Rendering derived from the current product specification.</text>
+  <text x="1042" y="786" font-family="Inter,Arial,sans-serif" font-size="12" fill="#7181a6">Replace with a browser-captured UI after M1.</text>
+
+  <text x="278" y="862" font-family="Inter,Arial,sans-serif" font-size="12" fill="#627292">PUBLIC PORTFOLIO ARTIFACT · REDACTED · DESIGN ONLY</text>
+</svg>
