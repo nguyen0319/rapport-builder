@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
 
       - name: Validate public portfolio
         shell: bash
@@ -59,32 +61,45 @@ jobs:
           if not svg_root.tag.endswith("svg"):
               raise SystemExit("operator-view-redacted.svg is not an SVG document")
 
-          public_repo_prefix = "https://github.com/nguyen0319/rapport-builder"
-          owner_repo_url = re.compile(r"https://github\\.com/nguyen0319/[A-Za-z0-9_.-]+")
+          files: list[tuple[Path, str]] = []
           for path in Path(".").rglob("*"):
               if not path.is_file() or ".git" in path.parts:
                   continue
               try:
-                  text = path.read_text(encoding="utf-8")
+                  files.append((path, path.read_text(encoding="utf-8")))
               except UnicodeDecodeError:
                   continue
+
+          public_repo_prefix = "https://github.com/nguyen0319/rapport-builder"
+          owner_repo_url = re.compile(r"https://github\.com/nguyen0319/[A-Za-z0-9_.-]+")
+          for path, text in files:
               for match in owner_repo_url.findall(text):
                   if match != public_repo_prefix:
                       raise SystemExit(f"non-public repository URL found in {path}")
 
-          secret_like = re.compile(
-              r"(?:ghp_|github_pat_|sk-[A-Za-z0-9]|postgres(?:ql)?://[^\\s]+:[^\\s]+@|"
-              r"AKIA[0-9A-Z]{16})"
+          token_prefixes = [
+              "gh" + "p_",
+              "github" + "_pat_",
+              "s" + "k-",
+          ]
+          aws_prefix = "AK" + "IA"
+          credential_uri = re.compile(
+              r"(?:postgres|postgresql)://" + r"[^\s/:]+:[^\s/@]+@[^\s]+"
           )
-          for path in Path(".").rglob("*"):
-              if not path.is_file() or ".git" in path.parts:
-                  continue
-              try:
-                  text = path.read_text(encoding="utf-8")
-              except UnicodeDecodeError:
-                  continue
-              if secret_like.search(text):
-                  raise SystemExit(f"secret-like material found in {path}")
+          private_path_markers = [
+              "/" + "home" + "/",
+              "/" + "mnt" + "/",
+              "C:" + "\\" + "Users" + "\\",
+          ]
+          for path, text in files:
+              if any(prefix in text for prefix in token_prefixes):
+                  raise SystemExit(f"token-like material found in {path}")
+              if re.search(re.escape(aws_prefix) + r"[0-9A-Z]{16}", text):
+                  raise SystemExit(f"AWS-key-like material found in {path}")
+              if credential_uri.search(text):
+                  raise SystemExit(f"credential-bearing database URL found in {path}")
+              if any(marker in text for marker in private_path_markers):
+                  raise SystemExit(f"private machine path found in {path}")
 
           print("Rapport Builder public documentation validation: PASS")
           PY
