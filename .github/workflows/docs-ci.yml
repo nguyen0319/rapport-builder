@@ -1,0 +1,105 @@
+name: docs-ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  public-docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+
+      - name: Validate public portfolio
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import json
+          import re
+          import xml.etree.ElementTree as ET
+          from pathlib import Path
+
+          required = [
+              Path("README.md"),
+              Path("LICENSE"),
+              Path("assets/operator-view-redacted.svg"),
+              Path("docs/sample-authorization.schema.json"),
+          ]
+          missing = [str(path) for path in required if not path.is_file()]
+          if missing:
+              raise SystemExit(f"missing required public files: {missing}")
+
+          readme = Path("README.md").read_text(encoding="utf-8")
+          if not readme.startswith("# Rapport Builder\n"):
+              raise SystemExit("README title must be exactly '# Rapport Builder'")
+          if "```mermaid\n" not in readme:
+              raise SystemExit("README Mermaid opening fence is missing")
+          if "flowchart " not in readme:
+              raise SystemExit("README Mermaid flowchart body is missing")
+          if "nguyen.jimmy.2898@gmail.com" not in readme:
+              raise SystemExit("direct public contact email is missing")
+          if "open an issue for a walkthrough" in readme.lower():
+              raise SystemExit("deprecated walkthrough wording returned")
+
+          with Path("docs/sample-authorization.schema.json").open(encoding="utf-8") as handle:
+              schema = json.load(handle)
+          if schema.get("title") != "Rapport Builder public authorization snapshot":
+              raise SystemExit("public schema title is unexpected")
+
+          svg_root = ET.parse("assets/operator-view-redacted.svg").getroot()
+          if not svg_root.tag.endswith("svg"):
+              raise SystemExit("operator-view-redacted.svg is not an SVG document")
+
+          files: list[tuple[Path, str]] = []
+          for path in Path(".").rglob("*"):
+              if not path.is_file() or ".git" in path.parts:
+                  continue
+              try:
+                  files.append((path, path.read_text(encoding="utf-8")))
+              except UnicodeDecodeError:
+                  continue
+
+          public_repo_prefix = "https://github.com/nguyen0319/rapport-builder"
+          owner_repo_url = re.compile(r"https://github\.com/nguyen0319/[A-Za-z0-9_.-]+")
+          for path, text in files:
+              for match in owner_repo_url.findall(text):
+                  if match != public_repo_prefix:
+                      raise SystemExit(f"non-public repository URL found in {path}")
+
+          token_prefixes = [
+              "gh" + "p_",
+              "github" + "_pat_",
+              "s" + "k-",
+          ]
+          aws_prefix = "AK" + "IA"
+          credential_uri = re.compile(
+              r"(?:postgres|postgresql)://" + r"[^\s/:]+:[^\s/@]+@[^\s]+"
+          )
+          private_path_markers = [
+              "/" + "home" + "/",
+              "/" + "mnt" + "/",
+              "C:" + "\\" + "Users" + "\\",
+          ]
+          for path, text in files:
+              if any(prefix in text for prefix in token_prefixes):
+                  raise SystemExit(f"token-like material found in {path}")
+              if re.search(re.escape(aws_prefix) + r"[0-9A-Z]{16}", text):
+                  raise SystemExit(f"AWS-key-like material found in {path}")
+              if credential_uri.search(text):
+                  raise SystemExit(f"credential-bearing database URL found in {path}")
+              if any(marker in text for marker in private_path_markers):
+                  raise SystemExit(f"private machine path found in {path}")
+
+          print("Rapport Builder public documentation validation: PASS")
+          PY
