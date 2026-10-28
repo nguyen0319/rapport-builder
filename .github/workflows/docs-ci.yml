@@ -103,3 +103,47 @@ jobs:
 
           print("Rapport Builder public documentation validation: PASS")
           PY
+
+      - name: Validate current showcase evidence and links
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import re
+          import struct
+          from pathlib import Path
+
+          root = Path.cwd().resolve()
+          manifest = json.loads(Path("docs/screenshots.json").read_text(encoding="utf-8"))
+          assert manifest["schema_version"] == 1
+          assert manifest["data_classification"] == "synthetic test fixtures only"
+          assert manifest["real_accounts_shown"] is False
+          assert manifest["application_source_included"] is False
+          expected = set()
+          for item in manifest["files"]:
+              path = (root / item["path"]).resolve()
+              assert path.is_relative_to(root / "assets/screenshots")
+              assert path not in expected
+              expected.add(path)
+              data = path.read_bytes()
+              assert data[:8] == b"\x89PNG\r\n\x1a\n", path
+              assert len(data) == item["bytes"], path
+              assert hashlib.sha256(data).hexdigest() == item["sha256"], path
+              assert struct.unpack(">II", data[16:24]) == (item["width"], item["height"]), path
+          actual = {path.resolve() for path in Path("assets/screenshots").glob("*.png")}
+          assert actual == expected and len(expected) == 5
+
+          for page in [Path("README.md"), *Path("docs").glob("*.md")]:
+              text = page.read_text(encoding="utf-8")
+              for target in re.findall(r"!?\[[^\]]*\]\(([^)]+)\)", text):
+                  if target.startswith(("https://", "http://", "mailto:", "#")):
+                      continue
+                  linked = (page.parent / target.split("#", 1)[0]).resolve()
+                  assert linked.is_relative_to(root) and linked.is_file(), (page, target)
+          readme = Path("README.md").read_text(encoding="utf-8")
+          assert manifest["local_preview_version"] in readme
+          assert "Docs CI badge validates this public portfolio only" in readme
+          assert "no implemented product UI" not in readme.lower()
+          print("Current showcase evidence and local links: PASS")
+          PY

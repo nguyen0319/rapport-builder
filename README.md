@@ -1,98 +1,100 @@
 # Rapport Builder
 
 [![Docs CI](https://github.com/nguyen0319/rapport-builder/actions/workflows/docs-ci.yml/badge.svg)](https://github.com/nguyen0319/rapport-builder/actions/workflows/docs-ci.yml)
+![Local preview 0.5.1](https://img.shields.io/badge/local_preview-0.5.1-6d244f)
+![Windows x64](https://img.shields.io/badge/desktop-Windows_x64-493348)
 
-**Status:** Active development · Deterministic authority baseline under independent review · Private implementation source · Walkthrough available on request
+**The public showcase for OF-Chatter, a local-first, human-supervised AI conversation workspace.** The Windows application is named **Chatter Control**.
 
-**Scale:** No live-account operating runs are claimed. The current milestone is an engineering-control baseline for a single-host, single-account MVP.
+**Current state · October 28, 2026:** an implemented and locally installed **0.5.1 Windows preview**, with an embedded browser, a unified Model Workshop and explicit human approval controls. The application has progressed beyond the earlier design-only portfolio. This repository contains documentation and synthetic-data screenshots; private source, customer data, model weights and installers are not published here.
 
-## What it is
+> **Qualification boundary:** local synthetic tests exercise the approval/send implementation. Actual OnlyFans compatibility and live delivery have not been verified. No live-account operating results, trained-model quality or production readiness are claimed.
 
-Rapport Builder is a local-first, human-supervised AI conversation-operations platform for creator messaging. It is designed to reduce repetitive conversation work without giving a language model direct account authority. The model may interpret context and propose language, while deterministic software owns permissions, control state, freshness, approved commercial terms, safety holds, and write authorization. A human operator remains able to pause, take over, review, or revoke automation.
+## See the application
 
-This repository is a public engineering portfolio. It contains architecture, a reduced public contract, and redacted product artifacts only; the private application source and sensitive data are not included.
+![OF-Chatter Model Workshop with active workspace navigation and practice feedback controls](assets/screenshots/model-workshop-practice.png)
 
-## Built with
+*Actual installed 0.5.1 screenshot, captured October 26, 2026. The text is a synthetic fixture, not model output. No real account or customer conversation is shown.*
 
-**Implemented today:** Python 3.12 · JSON Schema · pytest · Ruff · Mypy · GitHub Actions  
-**Specified next layers:** Next.js · TypeScript · FastAPI · PostgreSQL · Playwright · local llama.cpp inference
+[Screenshot gallery](docs/GALLERY.md) · [Capability and validation snapshot](docs/CURRENT-STATE.md) · [Public authorization example](docs/sample-authorization.schema.json)
 
-## Operator UI
+## What works today
 
-![Rapport Builder operator view design rendering](assets/operator-view-redacted.svg)
+| Area | Implemented experience |
+| --- | --- |
+| Windows desktop | Click-to-open application, per-user installer and ZIP review candidates. The package starts its dashboard, API and private PostgreSQL database. |
+| Workspace navigation | Persistent **Dashboard** and **Model Workshop** tabs, an explicit active highlight and a shared dark plum/pink theme. |
+| Model Workshop | **Files & personality**, **Practice & feedback**, and **Conversations & datasets** in one workspace. File/personality and dataset edits survive section switches. |
+| File intake | TXT, Markdown, CSV, JSON, text PDF and DOCX; previews, source hashes and quarantine. Larger Word documents split into sections. Failed batches add nothing; retries skip imported sections. |
+| Customization | Saved personality, style and requirements, with references linked to independently reviewed datasets. Uploading a file does not train a model. |
+| Practice | Operator-requested local-model drafts, editable corrections and approve/deny feedback. Capturing teaching examples requires opt-in. Practice approval never sends website messages. |
+| Dataset curation | Conversation import, redaction, preview, frozen versions, independent review, purpose-specific exports, expiry and revocation. |
+| Embedded browser | Visible Chromium, manual login/navigation and optional local AI overview of sampled visible page text. |
+| Supervised messages | Select account, recipient, transcript, editor and Send button; prepare, explicitly place, approve one send or deny. Manually reconcile delivery before resuming. |
+| Owner-started fine-tuning | Muse / Gemma2 9B candidate setup checks and start/cancel controls. Separate original weights, CUDA environment and an approved training export are required. No completed run or qualified adapter is claimed. |
 
-> **UI evidence note:** the current private milestone contains no implemented product UI. The image above is a redacted, design-accurate rendering of the specified operator dashboard, clearly labeled as a design artifact. It will be replaced by a browser-captured application screenshot after the offline dashboard milestone is implemented.
+The operator dashboard labels its simulated conversations as **synthetic**. The native browser approval lane is separate and governed by its own account-authority checks. A working simulator does not establish a qualified live connector.
 
-## Architecture
+## Human approval before execution
+
+The model proposes text. Deterministic software controls whether the application may write.
+
+1. The operator selects the conversation and loads its issued local Control Room runtime record.
+2. The model drafts from the selected transcript, saved instructions and permitted references, or the operator prepares their own text.
+3. The operator reviews the wording and explicitly authorizes **Place draft in message field**. This is separate because a website may autosave field contents.
+4. The operator inspects the field and chooses **Approve & send** or **Deny**. Approval applies to the exact message and conversation state.
+5. The application records a send intent before clicking. A click remains uncertain until the operator verifies delivery and reconciles it. There is no automatic send retry.
+
+New messages, navigation, recipient changes, manual edits, stale drafts and changed authority invalidate approval. Pause discards it; emergency stop latches app-controlled writes off. The native writer checks the deterministic authority contract. The model cannot approve itself. Direct human website actions are outside this writer lane.
+
+**This flow has been exercised on local synthetic chat fixtures, not qualified live OnlyFans sessions.**
+
+## Architecture in the current preview
 
 ```mermaid
 flowchart LR
-    O[Operator] --> D[Responsive dashboard]
-    D --> A[Control API]
-    A --> W[Durable workflow / scheduler]
-    W --> M[Local model<br/>proposal only]
-    W --> P[Deterministic authorization]
-    P --> X[Single browser writer]
-    X --> E[Creator messaging platform]
-    W <--> DB[(PostgreSQL)]
-    P --> DB
-    H[Health / audit] --> DB
-    O --> C[Pause / takeover / emergency stop]
-    C --> P
+    O[Human operator] --> UI[Electron host and Next.js workspace]
+    UI --> API[FastAPI control and dataset API]
+    API --> DB[(PostgreSQL)]
+    UI --> L[Local model via Ollama]
+    L --> D[Proposed text only]
+    D --> R[Human review]
+    R --> G[Deterministic authority and freshness checks]
+    G --> B[Isolated visible browser writer]
+    B -. live qualification pending .-> P[OnlyFans target]
+    UI --> S[Windows-protected learning store]
+    UI --> T[Optional owner-started adapter worker]
 ```
 
-The architecture is organized around authority rather than premature service count. The implemented baseline is the deterministic authorization core; dashboard, API, durable workflow, model, browser, and persistence layers are staged behind later release gates.
+**Implemented stack:** Electron · Chromium / WebContentsView · Next.js / React / TypeScript · FastAPI / Python 3.12 · PostgreSQL · local Ollama inference · Python authorization contracts · Playwright-based synthetic checks.
 
-## System layers
+The optional Muse / Gemma2 9B training worker uses original compatible weights and a separate CUDA Python environment. Models and training dependencies are not bundled with the desktop installer. Adapter candidates never activate automatically for inference or sending.
 
-- **Control plane** — the responsive dashboard and API are specified to expose monitoring, review, pause, takeover, and emergency-stop commands without carrying platform credentials on the client.
-- **Durable workflow** — PostgreSQL is specified as the authoritative state, scheduling, lease, version, approval, and audit store so actions survive restarts and can be reconciled.
-- **Conversation reasoning** — a local model is intended to assemble a structured proposal from approved script, memory, and recent context; it is not allowed to choose its own permissions.
-- **Deterministic authorization** — the implemented Python authority contract validates release stage, control mode, emergency stop, approvals, hashes, epochs, versions, and connector evidence with explicit fail-closed decisions.
-- **Execution boundary** — a visible browser worker is specified as the sole future platform writer and must revalidate authority immediately before any write.
-- **Learning pipeline** — rights-cleared historical data is planned to move through quarantine, de-identification, review, versioning, retrieval, and optional offline adaptation rather than continuous self-training.
+## Data and control boundaries
 
-## Proposal / authorization / execution
+- Imported reference text and profile settings use Windows-protected encrypted storage. Original files, explicit exports and adapter outputs are outside that store and need separate handling.
+- Quarantined uploads are untrusted data. Only currently permitted, integrity-checked dataset exports enter reference generation or training preparation.
+- The guest browser is sandboxed and isolated from the application bridge. Sessions are temporary and AI observation is opt-in; sampling does not capture every activity, frame, media stream or transient change.
+- Account/recipient binding, exact-message approval, stale-context rejection, durable intent, reconciliation and emergency stop constrain app-controlled writes.
+- The local audit is hash chained, not externally anchored and immutable. A browser click is not a delivery acknowledgement.
 
-The strongest boundary in Rapport Builder separates language generation from authority. The proposal side is responsible for conversational interpretation and wording. It may suggest a reply or an approved offer category, but it cannot set prices, change account mode, advance control epochs, authorize a browser action, or approve itself.
+The [public authorization schema](docs/sample-authorization.schema.json) remains a reduced illustration, not the full private runtime contract.
 
-The authorization side is deterministic. It evaluates the current release stage and mode, emergency-stop state, connector state, account and conversation epochs, version freshness, action digest, human approval, and independent-checker evidence. Unknown or malformed authority input is denied rather than guessed. In the current baseline, stages M0 through M3 cannot authorize an application-mediated platform write.
+## Verification and remaining work
 
-The execution side is separately constrained: the future browser worker is the only component allowed to write to the platform, and it must re-check the final command before execution. This separation is intended to prevent stale sends, duplicate/conflicting actions, model self-escalation, unsupported commercial terms, and automation continuing after a human takeover or emergency stop.
+Recorded **0.5.0** validation passed **34 desktop tests and 11 targeted dashboard tests**, plus installed-app and synthetic browser checks. The **0.5.1** navigation update passed **11 targeted dashboard tests**, lint/type checks, a dashboard production build and installed navigation/upload/persistence checks. Installed integrity checks matched **5,578 runtime files** to their SHA-256 manifest. These are milestone-specific results, not a claim that the entire suite ran on the latest head.
 
-## Redacted public contract
+The [current-state snapshot](docs/CURRENT-STATE.md) distinguishes implemented features, exercised scenarios and remaining qualification:
 
-```json
-{
-  "action": "EXECUTE_PLATFORM_WRITE",
-  "mode": "DRAFT_ONLY",
-  "control": {
-    "account_epoch": 12,
-    "conversation_epoch": 41
-  },
-  "decision": {
-    "allowed": false,
-    "code": "RELEASE_STAGE_NO_WRITE"
-  },
-  "created_at": "<redacted>"
-}
-```
+- Actual OnlyFans account binding, site compatibility and delivery require live qualification.
+- No completed fine-tuning run, accepted adapter or trained-model quality result is claimed.
+- The desktop package is an **unsigned review preview**. Signing, independent release review, application CI clearance and production hardening remain.
+- No public application download or implementation-source release is offered here.
 
-The machine-readable example in [`docs/sample-authorization.schema.json`](docs/sample-authorization.schema.json) is intentionally smaller and more general than the private application contract. It shows the public shape of an authorization snapshot without exposing account identifiers, hashes, policy versions, evidence records, or proprietary workflow detail.
-
-## Implemented and exercised
-
-- A Python 3.12 deterministic authority contract with explicit release-stage capabilities and default-deny behavior.
-- Runtime normalization and stable denial codes for malformed authority input.
-- M0–M3 no-write enforcement, emergency-stop/recovery rules, human approval checks, and stale epoch/version rejection.
-- Public-schema counterparts, package validation, linting, type checking, tests, repository-manifest checks, and CI evidence. The milestone remains under independent review and is not presented here as a production release.
-
-## Specified and still being expanded
-
-The next milestones add the offline Next.js/FastAPI/PostgreSQL simulator and responsive dashboard, local-model shadow evaluation, read-only browser shadow integration, and later a human-approved write path only if external platform/account/legal/privacy authority is documented. Bounded low-risk automation, rights-cleared retrieval/adaptation, endurance testing, backup/recovery drills, and broader production hardening remain later work.
+The **Docs CI badge validates this public portfolio only**. It does not certify application release gates, model quality or live-platform readiness.
 
 ## Contact and license
 
-For a technical walkthrough or architecture discussion, email **nguyen.jimmy.2898@gmail.com**.
+For a walkthrough or architecture discussion, email **nguyen.jimmy.2898@gmail.com**.
 
-Public documentation and redacted portfolio artifacts are © 2026 Jimmy Nguyen. All rights reserved; see [`LICENSE`](LICENSE). The private application source, private datasets, credentials, and proprietary implementation details are not included.
+Public documentation and portfolio artifacts are © 2026 Jimmy Nguyen. All rights reserved; see [LICENSE](LICENSE). Private source, customer conversations, credentials, authority records, datasets, model weights and adapters are not included.

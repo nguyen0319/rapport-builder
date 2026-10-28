@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "product": "OF-Chatter / Chatter Control",
+  "local_preview_version": "0.5.1",
+  "showcase_updated": "2026-10-28",
+  "capture_date": "2026-10-26",
+  "evidence_type": "actual installed application screenshots",
+  "data_classification": "synthetic test fixtures only",
+  "real_accounts_shown": false,
+  "application_source_included": false,
+  "files": [
+    {
+      "path": "assets/screenshots/model-workshop-practice.png",
+      "bytes": 112230,
+      "sha256": "76d0b0e1d088451352c729b57589749f50caaa8854d2e883463705e1d35654fe",
+      "width": 2057,
+      "height": 1647
+    },
+    {
+      "path": "assets/screenshots/model-workshop-files.png",
+      "bytes": 455819,
+      "sha256": "73e9d06770980083791a09480d4fc3195141230e829a5c32343798efbe0bf616",
+      "width": 2057,
+      "height": 3894
+    },
+    {
+      "path": "assets/screenshots/model-workshop-datasets.png",
+      "bytes": 225091,
+      "sha256": "3a46bb732bec34341e4faedfc9e8a0f91b0e6e510dee3daa8ae0b77376b2d047",
+      "width": 2057,
+      "height": 2720
+    },
+    {
+      "path": "assets/screenshots/operator-dashboard.png",
+      "bytes": 633274,
+      "sha256": "6b30f497af59e8d35a2198d9c210c037c25444ad3b50feeb823b04ffb1dd7262",
+      "width": 2057,
+      "height": 3227
+    },
+    {
+      "path": "assets/screenshots/embedded-browser.png",
+      "bytes": 128126,
+      "sha256": "d2f82a84347bab5a8fb25d03d64a6cb408a7914da51b2a9ba6ffc3e5b48e69cc",
+      "width": 2139,
+      "height": 1386
+    }
+  ]
+}
