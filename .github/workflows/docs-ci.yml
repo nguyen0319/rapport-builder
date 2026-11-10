@@ -126,13 +126,15 @@ jobs:
               assert path.is_relative_to(root / "assets/screenshots")
               assert path not in expected
               expected.add(path)
+              assert item["local_preview_version"] in {"0.5.1", "0.10.0"}
+              assert item["capture_date"] in {"2026-10-26", "2026-11-10"}
               data = path.read_bytes()
               assert data[:8] == b"\x89PNG\r\n\x1a\n", path
               assert len(data) == item["bytes"], path
               assert hashlib.sha256(data).hexdigest() == item["sha256"], path
               assert struct.unpack(">II", data[16:24]) == (item["width"], item["height"]), path
           actual = {path.resolve() for path in Path("assets/screenshots").glob("*.png")}
-          assert actual == expected and len(expected) == 5
+          assert actual == expected and len(expected) == 7
 
           for page in [Path("README.md"), *Path("docs").glob("*.md")]:
               text = page.read_text(encoding="utf-8")
