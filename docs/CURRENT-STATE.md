@@ -1,45 +1,52 @@
 # OF-Chatter: capability and validation snapshot
 
-**Showcase updated:** October 28, 2026. **Latest documented local preview:** Chatter Control **0.5.1**. **Local verification recorded:** October 26, 2026.
+**Updated:** November 10, 2026. **Installed local preview:** Chatter Control **0.10.0**. **Companion:** Qwen Desktop **0.7.3**.
 
-Rapport Builder is the public portfolio for OF-Chatter. This snapshot summarizes recorded implementation and local validation without publishing private source, authority records, operational logs, installers, datasets or model artifacts.
+This is a public implementation summary. It contains no application source, private conversations, account records, local paths, datasets, model artifacts or installers. Local implementation is distinct from governed application-source admission and release approval.
 
 ## Capability status
 
-| Capability | Implementation | Qualification boundary |
+| Capability | Implemented locally | Qualification boundary |
 | --- | --- | --- |
-| Windows delivery | Per-user Setup installer and ZIP candidates; bundled dashboard/API/database startup | Unsigned local preview, no public binary release here |
-| Workspace | Highlighted Dashboard/Model Workshop tabs; common plum/pink theme; selecting the active tab preserves its contents | Installed navigation checks passed |
-| Model Workshop | Files/personality, practice/feedback and conversation/dataset curation unified | Data and controls retained; older links redirect |
-| Document intake | TXT/MD/CSV/JSON/PDF/DOCX, bounded extraction, quarantine, hashes, Word sections, atomic batches and duplicate retry handling | Text PDFs only; no OCR; parser/storage limits apply |
-| Personality/references | Saved instructions and purpose-approved dataset references | Uploads alone do not become trusted context or change weights |
-| Practice | Editable local-model drafts, approve/deny and opt-in capture | Practice approval never sends website messages |
-| Dataset review | Curation/redaction, frozen versions, independent review, purpose-specific exports, expiry and revocation | Separate Checker provisioning; no Maker self-approval |
-| Browser | Visible isolated Chromium, manual navigation/login, opt-in sampled AI overview | Temporary session and incomplete activity coverage; compatibility varies |
-| Supervised writer | Selected fields, account/recipient binding, issued authority, explicit fill/send, freshness checks, durable intent and stop/recovery | Synthetic fixtures exercised; actual OnlyFans delivery unverified |
-| Fine-tuning | Owner-started Muse / Gemma2 9B candidate worker and setup/start/cancel UI | Separate weights/CUDA setup and approved TRAINING export required; no completed run or qualified adapter claimed |
+| Windows application | Per-user installer/ZIP, bundled dashboard/API/PostgreSQL | Unsigned local preview; no public binary download here |
+| Unified workspace | Highlighted navigation; files/personality, practice, datasets, candidate tests and agency review | Synthetic screenshots show the actual UI, not live operating results |
+| Document intake | TXT/MD/CSV/JSON/JSONL/text PDF/DOCX, bounded extraction, quarantine, source hashes and supported Word sender layouts | No OCR; uncertain speaker attribution is reported |
+| Named profiles | Saved instructions, exact revisions and assigned training datasets | Selecting a profile does not load its trained weights |
+| Dataset paths | Independently reviewed Studio versions and explicitly owner-delegated local versions | Local delegation never claims independent Checker approval |
+| Requested training | Qwen3-8B-abliterated with Unsloth QLoRA, 4-bit base, rank 16; durable start/cancel/results | Requires original weights/CUDA Python; uploads and feedback never automatically train |
+| Flexible datasets | Any nonempty valid training set; grouped holdout where feasible | Resource/integrity/authorization limits remain; unavailable evaluation is explicit |
+| Result evidence | Manifest, adapter artifacts, provenance hashes and held-out loss where available | Selected job/progress/audit evidence; no full persisted console log or loss curve |
+| Private candidate chat | Direct loading of the verified saved LoRA; multi-turn context, saved sessions, reply ratings and corrections | No activation or website connection; separate human quality evaluation remains necessary |
+| Candidate review export | Original responses and review history preserved; corrected/positively rated examples can be exported | Exports require later curation/review; ratings do not modify weights |
+| Qwen companion | Requested file/data preparation, readiness/training, current-result lookup and normal-shortcut reconnection | Authenticated loopback; app permissions remain with the user; no workshop approve/send tool |
+| Browser and agency workflow | Visible embedded Chromium, manual login, sampled observation, account/profile/model mapping, OBSERVE/SUPERVISED modes and flagged response review | Actual OnlyFans compatibility and delivery remain unverified |
+| Supervised writer | Bound identity/fields, explicit placement and one-send approval, stale rejection, durable intent, reconciliation and stop/recovery | Synthetic fixture validation does not qualify a live connector |
 
-## Recorded checks
+## Current local verification
 
-| Milestone | Result | Scope |
+| Evidence | Recorded result | Limit |
 | --- | --- | --- |
-| 0.5.0 consolidation | 34 desktop tests and 11 targeted dashboard tests; lint, type checking and build passed | Specific local milestone, not the latest application's entire suite |
-| 0.5.0 supervised fixture | Field selection, canonical authority, staging, denial, one send, reconciliation, inbound invalidation and emergency stop passed | Local synthetic chat; no real platform account or model required |
-| 0.5.1 navigation | 11 targeted dashboard tests, lint, type checking and build passed | Current navigation/workshop change |
-| 0.5.1 installed app | Active/inactive state, switching both directions, active-tab retention, redirects, uploads, Word splitting, batch rollback/deduplication, encrypted persistence, restart and database shutdown passed | Isolated synthetic profiles |
-| 0.5.1 integrity | Executable/archive matched their build; 5,578 runtime files matched the SHA-256 manifest | Packaging integrity, not production-security proof |
+| Candidate-chat desktop checks | 62 tests passed | Local desktop suite at the candidate implementation revision |
+| Candidate/workshop dashboard checks | Four relevant component tests passed; targeted lint, type checking and production build passed | Not a claim that every application suite ran |
+| Python candidate prompt checks | Two tests passed | Context/role validation without training |
+| Real adapter inference | Two conversational turns completed with previous-turn context | Functional inference only, no response-quality benchmark |
+| Fine-tuning evidence | A completed local job, final manifest and saved adapter were verified | Per-profile transcripts, filenames and metrics remain private |
+| Packaged application | Isolated database/API/dashboard startup, candidate tab, Windows encryption, restart and clean shutdown passed | Synthetic workspace, no real platform account |
+| Installation integrity | Installed native modules and candidate worker matched the verified build | File integrity does not establish production security |
 
-The 0.5.1 build and validation revision differ only in a test selector and its source-manifest entry; application sources are the same. This summary avoids internal machine paths and raw logs. [Screenshot metadata](screenshots.json) records hashes, dimensions and synthetic-data classification.
+Public Docs CI validates these documentation files, local links and screenshot fingerprints. It does not run or approve the private application or validate private model artifacts.
 
-## Learning is deliberate
+## Private candidate test limits
 
-Uploads, personality changes and practice approval do not run weight training. Reference permission is separate from training permission. The owner must explicitly start fine-tuning with a current approved TRAINING export and required local dependencies. Candidate adapters do not activate automatically. No completed fine-tuning or trained-adapter quality result is claimed.
+Tests use the original non-thinking chat format, a 1,024-token window and up to 192 generated tokens. The full conversation is used; oversized input is rejected rather than silently truncated. Initial file verification/model loading can take minutes. The worker unloads after one minute idle, on Stop, on leaving the tab, before training or when the app exits. Testing pauses Chatter live drafting/observation and releases Ollama GPU models first. Other applications can still compete for GPU memory.
 
-## Release boundaries and next work
+Conversations and corrections use Windows-protected storage with a 30-day retention period. Bounds are 50 saved sessions, 50 replies per session, 500 review events per session and the existing storage byte limit. Original files, explicit exports and adapter outputs are outside the encrypted learning store.
 
-1. Complete private-application source admission, independent exact-head review and authorized application CI. Public Docs CI is separate and clears none of those gates.
-2. Qualify real page selection, account/recipient binding and delivery against the intended OnlyFans test accounts and issued authority evidence.
-3. Evaluate model behavior and, if the owner elects to train, separately qualify any adapter before promotion.
-4. Complete signing and release hardening, including endurance, retention and backup/recovery validation, before general distribution.
+## Remaining work
 
-No production clearance, live-account operating scale, autonomous sending, externally immutable audit, public installer availability or platform endorsement is asserted.
+1. Complete application-source admission, independent review and authorized exact-head application CI. This public documentation update grants none of those approvals.
+2. Evaluate candidate voice, context handling and response quality through human review. A lower evaluation loss is not an accuracy or personality score.
+3. Qualify real OnlyFans identity/field binding and delivery under issued authority. No unattended sending, account-operating scale or platform endorsement is claimed.
+4. Complete signing, endurance/resource testing, retention and backup/recovery validation, and distribution hardening.
+
+The [gallery](GALLERY.md) distinguishes current captures from historical screenshots. No production readiness, externally immutable audit or public application availability is asserted.

@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
   "product": "OF-Chatter / Chatter Control",
-  "local_preview_version": "0.5.1",
-  "showcase_updated": "2026-10-28",
-  "capture_date": "2026-10-26",
-  "evidence_type": "actual installed application screenshots",
+  "local_preview_version": "0.10.0",
+  "showcase_updated": "2026-11-10",
+  "capture_date": "mixed; see per-file capture_date",
+  "evidence_type": "versioned historical installed captures and current packaged/web UI captures",
   "data_classification": "synthetic test fixtures only",
   "real_accounts_shown": false,
   "application_source_included": false,
@@ -14,35 +14,74 @@
       "bytes": 112230,
       "sha256": "76d0b0e1d088451352c729b57589749f50caaa8854d2e883463705e1d35654fe",
       "width": 2057,
-      "height": 1647
+      "height": 1647,
+      "local_preview_version": "0.5.1",
+      "capture_date": "2026-10-26",
+      "capture_type": "installed application, synthetic fixture"
     },
     {
       "path": "assets/screenshots/model-workshop-files.png",
       "bytes": 455819,
       "sha256": "73e9d06770980083791a09480d4fc3195141230e829a5c32343798efbe0bf616",
       "width": 2057,
-      "height": 3894
+      "height": 3894,
+      "local_preview_version": "0.5.1",
+      "capture_date": "2026-10-26",
+      "capture_type": "installed application, synthetic fixture"
     },
     {
       "path": "assets/screenshots/model-workshop-datasets.png",
       "bytes": 225091,
       "sha256": "3a46bb732bec34341e4faedfc9e8a0f91b0e6e510dee3daa8ae0b77376b2d047",
       "width": 2057,
-      "height": 2720
+      "height": 2720,
+      "local_preview_version": "0.5.1",
+      "capture_date": "2026-10-26",
+      "capture_type": "installed application, synthetic fixture"
     },
     {
       "path": "assets/screenshots/operator-dashboard.png",
       "bytes": 633274,
       "sha256": "6b30f497af59e8d35a2198d9c210c037c25444ad3b50feeb823b04ffb1dd7262",
       "width": 2057,
-      "height": 3227
+      "height": 3227,
+      "local_preview_version": "0.5.1",
+      "capture_date": "2026-10-26",
+      "capture_type": "installed application, synthetic fixture"
     },
     {
       "path": "assets/screenshots/embedded-browser.png",
       "bytes": 128126,
       "sha256": "d2f82a84347bab5a8fb25d03d64a6cb408a7914da51b2a9ba6ffc3e5b48e69cc",
       "width": 2139,
-      "height": 1386
+      "height": 1386,
+      "local_preview_version": "0.5.1",
+      "capture_date": "2026-10-26",
+      "capture_type": "installed application, synthetic fixture"
+    },
+    {
+      "path": "assets/screenshots/candidate-test.png",
+      "bytes": 95302,
+      "sha256": "24b02511e9c921a197bb11cdb39ea2708239990cd2f051b716b4c8ca2f23ae3d",
+      "width": 2079,
+      "height": 1370,
+      "local_preview_version": "0.10.0",
+      "capture_date": "2026-11-10",
+      "capture_type": "packaged executable, isolated synthetic workspace",
+      "model_generated_text": false,
+      "real_accounts_shown": false
+    },
+    {
+      "path": "assets/screenshots/candidate-chat-demo.png",
+      "bytes": 98828,
+      "sha256": "7beb95f56989c1f28634f062a3147712fa6012dfcc85b734e1ac1a66de051495",
+      "width": 1360,
+      "height": 1701,
+      "local_preview_version": "0.10.0",
+      "capture_date": "2026-11-10",
+      "capture_type": "actual application web UI with synthetic desktop bridge and fixture reply",
+      "model_generated_text": false,
+      "real_accounts_shown": false
     }
   ]
 }
